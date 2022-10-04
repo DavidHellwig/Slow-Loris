@@ -1,8 +1,13 @@
 import socket
 
+
 class Attacker:
-    def __init__(self,target):
+    def __init__(self, target):
         self.target = target
+        self.port = 80
+
+
+
         self.fakeHeaderList = [
             [
                 "User-agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, Gecko) Chrome/55.0.2919.83 Safari/537.36",
@@ -21,14 +26,25 @@ class Attacker:
             ]
 
         ]
-
+    #This method iniates an attack on a given target
     def attackTarget(self):
-        pass
+
+        #This needs to be changed to enable HTTPS connections, this implementation is currently
+        loris = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        loris.connect((self.target, 80))
+
+        req = "GET / HTTP/1.1\nHost: "+self.target+"\r\n\r\n"
+
+        loris.send(req.encode())
+
+        info = loris.recv(10000)
+
+
+        print(info.decode("utf8"))
 
     def stayAlive(self):
         pass
 
     def printStatus(self):
         pass
-
-
