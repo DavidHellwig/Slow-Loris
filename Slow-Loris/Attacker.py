@@ -3,12 +3,12 @@ import ssl
 
 
 class Attacker:
-    def __init__(self, target, numSockets):
+    def __init__(self, target):
         self.target = target
         self.port = 80
-        self.socketCount = numSockets
+        self.loris = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.status = "Unconnected"
 
-        self.sockets = []
 
 
 
@@ -34,13 +34,17 @@ class Attacker:
     def createSocket(self):
 
         #This needs to be changed to enable HTTPS connections, this implementation is currently
-        loris = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #loris = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        loris = ssl.wrap_socket(loris, ssl_version=ssl.PROTOCOL_SSLv23)
+        self.loris = ssl.wrap_socket(self.loris, ssl_version=ssl.PROTOCOL_SSLv23)
 
-        loris.connect((self.target, 443))
+        self.loris.connect((self.target, 443))
 
-        self.sockets.append(loris)
+        self.status = "Connected to "+self.target+" Target on port 443"
+
+
+
+
 
        # req = "GET / HTTP/1.1\nHost: "+self.target+"\r\n\r\n"
 
@@ -52,17 +56,22 @@ class Attacker:
 
         #print(info.decode("utf8"))
 
-    #Create all the sockets that will be used in the attack
-    def createAllSockets(self):
-        for i in range (0,self.socketCount):
-            self.createSocket()
 
+
+
+    #Method that starts the attack on the target
     def attackTarget(self):
-        self.createAllSockets()
+        try:
+            pass
+        except Exception as e:
+            print(e)
 
+        self.status = "Attacking "+self.target+""
 
+    #Calls on a socket to stay alive
     def stayAlive(self):
+        self.loris.send()
         pass
-
-    def printStatus(self):
-        pass
+    #Return the current status of the Attacker
+    def returnStatus(self):
+        return self.status

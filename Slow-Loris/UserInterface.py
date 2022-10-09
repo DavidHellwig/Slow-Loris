@@ -1,4 +1,5 @@
 import tkinter as tkinter
+import AttackManager
 
 
 class UserInterface:
