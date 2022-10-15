@@ -1,21 +1,42 @@
+import time
+
 from Attacker import Attacker
+
+
 class AttackManager:
-    def __init__(self,target,numSockets):
+    def __init__(self, target, numSockets):
         self.target = target
         self.socketCount = numSockets
-        self.slowLoris = Attacker(self.target,self.socketCount)
 
         self.attackIsActive = False
 
-    #Show the current status of the attack
+        self.socketList = []
+
+        self.timer = 0
+
+    # Show the current status of the attack
     def checkAttackStatus(self):
-        if(self.attackIsActive == True):
+        if (self.attackIsActive == True):
             statuses = []
 
-            for loris in self.slowLoris.sockets:
+            for loris in self.socketList:
                 statuses.append(loris.returnStatus())
+            return statuses
 
-        elif(self.attackIsActive == False):
+        elif (self.attackIsActive == False):
             return "Current Status: There is no attack occuring"
         else:
             return "Error: Something is broken"
+
+    # Procede with an attack
+    def attack(self):
+        while (True):
+
+            for loris in self.socketList:
+                loris.attack()
+            timer = time.time()
+
+    def createAttackers(self):
+        for i in self.socketCount:
+            socket = Attacker(self.target)
+            self.socketList.append(socket)

