@@ -60,6 +60,18 @@ class Application():
 
         helpWindow.geometry("500x500")
 
+        helpText = tkinter.Text(helpWindow)
+
+        contents = open("readme.txt","r")
+
+        helpText.insert("1.0", contents.read())
+
+        contents.close()
+
+        helpText.config(state="disabled")
+
+        helpText.pack()
+
     def start(self):
         self.scene.mainloop()
 test = Application()
