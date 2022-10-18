@@ -58,7 +58,7 @@ class Application():
 
         helpWindow.title("Help")
 
-        helpWindow.geometry("500x500")
+        helpWindow.geometry("800x400")
 
         helpText = tkinter.Text(helpWindow)
 
