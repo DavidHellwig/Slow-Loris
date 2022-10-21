@@ -31,10 +31,15 @@ class AttackManager:
     # Procede with an attack
     def attack(self):
         while (True):
-
             for loris in self.socketList:
-                loris.attack()
-            timer = time.time()
+                try:
+                    loris.attackTarget()
+                    time.sleep(1)
+                except Exception as e:
+                    self.socketList.remove(loris)
+                    newLoris = Attacker(self.target)
+                    self.socketList.append(newLoris)
+
 
     def createAttackers(self):
         for i in self.socketCount:
