@@ -8,6 +8,6 @@ Guide:
 
 "Start Attack" - This button starts the slow loris attack on the designated target.
 
-"Attack Status" - this displays the overall status of the attack; whether it's running or has failed.
+
 
 

