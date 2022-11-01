@@ -1,5 +1,5 @@
 #The last UI was terrible, let's try this instead
-
+import asyncio
 import tkinter as tkinter
 from  AttackManager import AttackManager
 

