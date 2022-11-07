@@ -85,3 +85,4 @@ class Application():
         self.scene.mainloop()
 test = Application()
 test.start()
+#We are debugging this shit line by line, starting with creating a socket because shit aint working
