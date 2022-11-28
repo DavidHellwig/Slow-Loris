@@ -36,31 +36,7 @@ class Attacker:
 
 
 
-        #try:
 
-
-            #self.loris.connect((self.target, self.port))
-            #downgrading to this for now
-            #request = "GET / HTTP/1.0\r\n\r\n"
-
-            #self.loris.send(request.encode())
-
-
-
-            #Send fake header elements to target
-            #for element in self.fakeHeaderList:
-             #   self.loris.send(bytes("{}\r\n".format(element).encode("utf-8")))
-
-
-
-            #info = self.loris.recv(10000)
-
-           # print(info.decode("utf-8"))
-
-
-            #self.status = "Connected to " + self.target + " Target on port 443"
-        #except Exception as e:
-          #  print(e)
 
 
 
@@ -92,6 +68,4 @@ class Attacker:
 
         print(info.decode("utf-8"))
 
-#test = Attacker("192.168.0.243")
-#test.createSocket()
-#test.ping()
+
