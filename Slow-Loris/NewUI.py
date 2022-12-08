@@ -1,5 +1,4 @@
-#The last UI was terrible, let's try this instead
-import asyncio
+
 import tkinter as tkinter
 from  AttackManager import AttackManager
 
@@ -8,15 +7,12 @@ class Application():
 
         self.scene = tkinter.Tk()
 
-        # Basic UI elements, need to redo this shit
         self.scene.title("Slow Loris Tool 4416")
         # Screen Size
         self.scene.geometry("400x300")
 
         # Menu
         self.lorisMenu = tkinter.Menu(self.scene)
-
-
 
         self.helpButton = tkinter.Button(text="Open Readme", width=10, height=3, bg="snow4", fg="grey1",command= lambda : self.openHelp())
 
@@ -42,13 +38,9 @@ class Application():
 
         self.socketsToUse.place(x=50, y=120)
 
+        self.helpButton.place(x=165, y=200)
 
-
-
-
-        self.helpButton.pack()
-
-        # Open a help window
+    # Open a help window
     def openHelp(self):
         helpWindow = tkinter.Toplevel()
 
